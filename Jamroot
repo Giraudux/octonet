@@ -1,0 +1,28 @@
+#          Copyright Alexis Giraudet 2014.
+# Distributed under the Boost Software License, Version 1.0.
+#    (See accompanying file LICENSE_1_0.txt or copy at
+#          http://www.boost.org/LICENSE_1_0.txt)
+
+import modules ;
+import option ;
+import os ;
+
+boost-root ?= [ option.get boost-root ] ;
+boost-root ?= [ os.environ BOOST_ROOT ] ;
+
+use-project /boost : $(boost-root) ;
+
+project octonet
+    # Source location
+    :
+    # Requirements
+    : requirements <include>include <source>/boost//serialization <source>/boost//system <source>/boost//thread #<define>OCTONET_LOG_ENABLE <source>/boost//log
+    # Default build
+    : default-build <threading>multi <link>static
+    # Build directory
+    :
+    ;
+
+exe octowatch : src/octowatch/octowatch.cpp ;
+
+install build : octowatch ;

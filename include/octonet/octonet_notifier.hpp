@@ -6,6 +6,7 @@
 #ifndef OCTONET_NOTIFIER_HPP
 #define OCTONET_NOTIFIER_HPP
 
+#include <boost/uuid/uuid.hpp>
 #include <set>
 
 #include "octopeer.hpp"
@@ -13,7 +14,7 @@
 #include "octoquery.hpp"
 #include "octoquery_observer.hpp"
 
-class octonet : public octopeer
+class octonet_notifier : public octopeer
 {
 private:
     void notify_peer_observers(const octopeer& _peer, octopeer_state _state)
@@ -58,11 +59,11 @@ protected:
 
 public:
 
-    octonet_notifier(void) {}
+    octonet_notifier(boost::uuids::uuid _uuid) : octopeer(_uuid) {}
 
     ~octonet_notifier(void) {}
 
-    void add_peer(const octopeer& _peer)
+    bool add_peer(const octopeer& _peer)
     {
         boost::lock_guard<boost::mutex> guard(peers_set_mtx_);
         if(peers_set_.find(_peer) == peers_set_.end())
@@ -70,17 +71,21 @@ public:
             if(peers_set_.insert(_peer).second);
             {
                 notify_peer_observers(_peer, online);
+                return true;
             }
         }
+        return false;
     }
 
-    void rem_peer(const octopeer& _peer)
+    bool rem_peer(const octopeer& _peer)
     {
         boost::lock_guard<boost::mutex> guard(peers_set_mtx_);
         if(peers_set_.erase(_peer) > 0)
         {
             notify_peer_observers(_peer, offline);
+            return true;
         }
+        return false;
     }
 
 
@@ -91,11 +96,14 @@ public:
 
     std::set<octopeer>& peers(std::set<octopeer>& _peers)
     {
+        boost::lock_guard<boost::mutex> guard(peers_set_mtx_);
+        _peers.insert(peers_set_.begin(), peers_set_.end());
         return _peers;
     }
 
     std::set<std::string>& app_ids(std::set<std::string>& _app_ids)
     {
+        boost::lock_guard<boost::mutex> guard(query_observers_set_mtx_);
         return _app_ids;
     }
 };

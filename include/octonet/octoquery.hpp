@@ -6,7 +6,6 @@
 #ifndef OCTOQUERY_HPP
 #define OCTOQUERY_HPP
 
-#include <boost/serialization/string.hpp>
 #include <string>
 
 #include "octopeer.hpp"

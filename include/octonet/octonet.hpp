@@ -6,10 +6,12 @@
 #ifndef OCTONET_HPP
 #define OCTONET_HPP
 
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/random_generator.hpp>
 #include <boost/thread/thread.hpp>
 #include <set>
 
-#include "octonet_notifier"
+#include "octonet_notifier.hpp"
 #include "octopeer.hpp"
 #include "octopeer_observer.hpp"
 #include "octoquery.hpp"
@@ -26,7 +28,7 @@ private:
 
 public:
 
-    octonet(void) {}
+    octonet(void) : octonet_notifier(boost::uuids::random_generator()()) {}
 
     ~octonet(void) {}
 
