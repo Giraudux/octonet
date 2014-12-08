@@ -10,8 +10,9 @@
 
 class octopeer_observer
 {
-    public:
-        virtual void update_peer(const octopeer& _peer, octopeer_state _state) = 0;
+public:
+
+    virtual void update_peer(const octopeer& _peer, octopeer_state _state) = 0;
 };
 
 #endif

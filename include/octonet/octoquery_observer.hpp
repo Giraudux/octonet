@@ -13,9 +13,11 @@
 
 class octoquery_observer
 {
-    public:
-        virtual void update_query(const octopeer& _peer, const octoquery& _query) = 0;
-        virtual const std::string& app_id(void) const = 0;
+public:
+
+    virtual void update_query(const octopeer& _peer, const octoquery& _query) = 0;
+
+    virtual const std::string& app_id(void) const = 0;
 };
 
 #endif

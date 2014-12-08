@@ -12,11 +12,13 @@
 
 struct octoquery
 {
-	std::string app_id;
-	std::string content;
+    std::string app_id;
 
-	octoquery(const std::string& _app_id, const std::string& _content) : app_id(_app_id), content(_content) {}
-	octoquery(const octoquery& _query)                                 : app_id(_query.app_id), content(_query.content) {}
+    std::string content;
+
+    octoquery(const std::string& _app_id, const std::string& _content) : app_id(_app_id), content(_content) {}
+
+    octoquery(const octoquery& _query) : app_id(_query.app_id), content(_query.content) {}
 };
 
 #endif

@@ -20,6 +20,7 @@
 class octonet : public octonet_notifier
 {
 private:
+
     void add_peer(const octopeer& _peer) {}
 
     void rem_peer(const octopeer& _peer) {}

@@ -12,17 +12,40 @@ enum octopeer_state { online, offline };
 
 struct octopeer
 {
-	const boost::uuids::uuid uuid;
+    const boost::uuids::uuid uuid;
 
-	octopeer(boost::uuids::uuid _uuid) : uuid(_uuid) {}
-	octopeer(const octopeer& _peer)    : uuid(_peer.uuid) {}
+    octopeer(boost::uuids::uuid _uuid) : uuid(_uuid) {}
+    octopeer(const octopeer& _peer)    : uuid(_peer.uuid) {}
 };
 
-inline bool operator==(const octopeer& lhs, const octopeer& rhs) { return lhs == rhs; }
-inline bool operator!=(const octopeer& lhs, const octopeer& rhs) { return lhs != rhs; }
-inline bool operator< (const octopeer& lhs, const octopeer& rhs) { return lhs <  rhs; }
-inline bool operator> (const octopeer& lhs, const octopeer& rhs) { return lhs >  rhs; }
-inline bool operator<=(const octopeer& lhs, const octopeer& rhs) { return lhs <= rhs; }
-inline bool operator>=(const octopeer& lhs, const octopeer& rhs) { return lhs >= rhs; }
+inline bool operator==(const octopeer& lhs, const octopeer& rhs)
+{
+    return lhs == rhs;
+}
+
+inline bool operator!=(const octopeer& lhs, const octopeer& rhs)
+{
+    return lhs != rhs;
+}
+
+inline bool operator< (const octopeer& lhs, const octopeer& rhs)
+{
+    return lhs <  rhs;
+}
+
+inline bool operator> (const octopeer& lhs, const octopeer& rhs)
+{
+    return lhs >  rhs;
+}
+
+inline bool operator<=(const octopeer& lhs, const octopeer& rhs)
+{
+    return lhs <= rhs;
+}
+
+inline bool operator>=(const octopeer& lhs, const octopeer& rhs)
+{
+    return lhs >= rhs;
+}
 
 #endif
