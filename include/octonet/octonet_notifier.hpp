@@ -104,6 +104,10 @@ public:
     std::set<std::string>& app_ids(std::set<std::string>& _app_ids)
     {
         boost::lock_guard<boost::mutex> guard(query_observers_set_mtx_);
+        for(std::set<octoquery_observer*>::const_iterator it=query_observers_set_.begin(); it!=query_observers_set_.end(); ++it)
+        {
+            _app_ids.insert((*it)->app_id());
+        }
         return _app_ids;
     }
 };
