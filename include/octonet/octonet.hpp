@@ -131,6 +131,8 @@ public:
     virtual void start(void) = 0;
 
     virtual void stop(void) = 0;
+
+    virtual void send_query(octopeer& _peer, octoquery& _query) = 0;
 };
 
 #endif
