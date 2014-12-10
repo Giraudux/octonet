@@ -12,67 +12,69 @@
 using boost::asio::ip::tcp;
 using boost::asio::ip::udp;
 
-class tcp_connection
+class octolocal;
+
+class tcp_connection : public boost::enable_shared_from_this<tcp_connection>
 {
-    ;
+private:
+    octolocal* local_;
+    tcp::socket tcp_socket_;
+
+    tcp_connection(octolocal* _local);
+
+public:
+
+    typedef boost::shared_ptr<tcp_connection> tcp_connection_ptr;
+
+    static tcp_connection_ptr new_tcp_connection(octolocal* _local);
+
+    tcp::socket& socket(void);
+
+    void start(void);
+
 };
 
 class tcp_server
 {
-    ;
+private:
+    octolocal* local_;
+    tcp::acceptor acceptor_;
+
+public:
+
+    tcp_server(octolocal* _local);
+
+    void start(void);
 };
 
 class udp_server
 {
-public:
-    udp_server(boost::asio::io_service& _io_service, unsigned short _port) : socket_(_io_service, udp::endpoint(udp::v4(), _port)) {}
-
-    void start_receive()
-    {
-        socket_.async_receive_from(
-            boost::asio::buffer(recv_buffer_), remote_endpoint_,
-            boost::bind(&udp_server::handle_receive, this,
-                        boost::asio::placeholders::error));
-    }
-
 private:
-
-    void handle_receive(const boost::system::error_code& error)
-    {
-        if (!error)
-        {
-            ;
-
-        }
-        start_receive();
-    }
-
+    octolocal* local_;
     udp::socket socket_;
     udp::endpoint remote_endpoint_;
-    boost::array<char, 10> recv_buffer_;
-};
+    boost::array<char, 1> recv_buffer_;
+
+public:
+
+    udp_server(octolocal* _local);
+
+    void start(void);
+}:
 
 class octolocal : public octonet
 {
+    friend class tcp_connection;
+    friend class udp_server;
+
 private:
     boost::asio::io_service io_service_;
-    tcp_server tcp_server_;
-    udp_server udp_server_;
 
 public:
 
-    void start(void)
-    {
-        ;
-    }
+    void start(void);
 
-    void stop(void)
-    {
-        ;
-    }
+    void stop(void);
 
-    void send_query(octopeer& _peer, octoquery& _query)
-    {
-        ;
-    }
+    void send_query(octopeer& _peer, octoquery& _query);
 };
