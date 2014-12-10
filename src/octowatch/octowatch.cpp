@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <octonet/octonet.hpp>
+#include <octolocal/octolocal.hpp>
 
 int main(void)
 {

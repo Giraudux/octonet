@@ -23,6 +23,8 @@ project octonet
     :
     ;
 
-exe octowatch : src/octowatch/octowatch.cpp ;
+#lib octolocal : src/octolocal/octolocal.cpp ;
+
+exe octowatch : src/octowatch/octowatch.cpp ; #octolocal ;
 
 install build : octowatch ;
